@@ -4,10 +4,14 @@
   "description": "medical",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "dist": "electron-builder"
   },
   "author": "J",
   "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.2",
+    "electron-builder": "^22.4.1"
+  },
   "dependencies": {
     "bluebird": "^3.7.2",
     "fastify": "^2.13.1",
@@ -18,5 +22,15 @@
   "engines": {
     "node": ">= 12.16.1",
     "npm": ">= 6.14.1"
+  },
+  "build": {
+    "appId": "com.medical.app",
+    "productName": "medical",
+    "asar": true,
+    "linux": {
+      "target": "AppImage",
+      "icon": "./__static/favicon.png",
+      "category": "Utility"
+    }
   }
 }

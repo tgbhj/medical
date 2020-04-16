@@ -21,10 +21,10 @@ mongoose.connect(`mongodb://${mongoHost}:${mongoPort}/${mongoDataBase}`, {
 
 fastify
     .register(info, { prefix: '/' })
-    .use(serveStatic('./build'))
+    .use(serveStatic('./__static'))
     .register(fastifyStatic, {
-        root: path.join(__dirname, 'build'),
-        prefix: '/build/'
+        root: path.join(__dirname, '__static'),
+        prefix: '/__static/'
     })
     .get('/*', (req, reply) => {
         reply.sendFile('index.html')

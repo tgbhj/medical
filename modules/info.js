@@ -3,7 +3,7 @@ const info = require('../dbs/info')
 async function getInfo(req, reply) {
     await info
         .find()
-        .sort({ time: -1 })
+        .sort({ date: -1 })
         .then(cb => {
             if (cb != null) {
                 reply.send({
