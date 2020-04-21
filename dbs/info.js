@@ -1,14 +1,23 @@
-const mongoose = require('mongoose')
+const { Sequelize, Model, DataTypes } = require('sequelize')
 
-const infoSchema = mongoose.Schema({
-    company: String, //公司名称
-    name: String, //联系人姓名
-    phone: String, //联系人电话
-    email: String, //联系人邮箱
-    msg: String, //联系人留言
-    date: { type: Date, default: Date.now } //提交日期时间
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: './DB.sqlite'
 })
 
-const info = mongoose.model('info', infoSchema)
+sequelize.sync()
 
-module.exports = info
+class Info extends Model { }
+
+Info.init({
+    company: DataTypes.STRING,
+    name: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    email: DataTypes.STRING,
+    msg: DataTypes.STRING
+}, {
+    sequelize,
+    modelName: 'info'
+})
+
+module.exports = Info

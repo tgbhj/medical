@@ -1,9 +1,8 @@
-const info = require('../dbs/info')
+const Info = require('../dbs/info')
 
 async function getInfo(req, reply) {
-    await info
-        .find()
-        .sort({ date: -1 })
+    await Info
+        .findAll({ order: [['id', 'DESC']]})
         .then(cb => {
             if (cb != null) {
                 reply.send({
@@ -18,24 +17,19 @@ async function getInfo(req, reply) {
                     cb: {}
                 })
             }
-        }, err => {
-            reply.send({
-                code: 50000,
-                msg: err,
-                cb: {}
-            })
         })
 }
 
 async function saveInfo(req, reply) {
-    await new info({
-        company: req.body.company,
-        name: req.body.name,
-        phone: req.body.phone,
-        email: req.body.email,
-        msg: req.body.msg
-    })
-        .save((err, cb) => {
+    await Info
+        .create({
+            company: req.body.company,
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
+            msg: req.body.msg
+        })
+        .then(cb => {
             if (cb != null) {
                 reply.send({
                     code: 20000,
@@ -45,10 +39,13 @@ async function saveInfo(req, reply) {
             } else {
                 reply.send({
                     code: 50000,
-                    msg: err,
+                    msg: 'Error',
                     cb: {}
                 })
             }
+        })
+        .catch(err => {
+            console.log(err)
         })
 }
 
