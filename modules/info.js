@@ -2,7 +2,7 @@ const Info = require('../dbs/info')
 
 async function getInfo(req, reply) {
     await Info
-        .findAll({ order: [['id', 'DESC']]})
+        .findAll({ order: [['id', 'DESC']] })
         .then(cb => {
             if (cb != null) {
                 reply.send({
